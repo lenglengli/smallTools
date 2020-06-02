@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* column不足 ，图片排列顺序是第一列从上到下，再到第二列，从上到下 */
+        /* 但是可以通过order改变图片的顺序 */
+        body{
+            margin: 4px;
+        }
+        .masonry{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            height: 1000px;
+        }
+        .item{
+            position: relative;
+            width: 25%;
+            padding: 2px;
+            box-sizing: border-box;
+        }
+        .item img{
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        /* 把第一行的图片转为第一列 */
+        item:nth-child(4n+1){
+            order: 1;
+        }
+    </style>
+<body>
+    <div class="masonry">
+        <div class="item">
+            <img src="https://picsum.photos/360/460?random=1" alt="">
+            <img src="https://picsum.photos/360/480?random=2" alt="">
+            <img src="https://picsum.photos/360/440?random=3" alt="">
+            <img src="https://picsum.photos/360/480?random=4" alt="">
+            <img src="https://picsum.photos/360/420?random=5" alt="">
+            <img src="https://picsum.photos/360/440?random=6" alt="">
+            <img src="https://picsum.photos/360/460?random=7" alt="">
+            <img src="https://picsum.photos/360/420?random=8" alt="">
+            <img src="https://picsum.photos/360/460?random=9" alt="">
+            <img src="https://picsum.photos/360/480?random=10" alt="">
+            <img src="https://picsum.photos/360/440?random=11" alt="">
+            <img src="https://picsum.photos/360/460?random=12" alt="">
+            <img src="https://picsum.photos/360/420?random=13" alt="">
+            <img src="https://picsum.photos/360/460?random=14" alt="">
+            <img src="https://picsum.photos/360/480?random=15" alt="">
+        </div>
+    </div>
+</body>
+</html>

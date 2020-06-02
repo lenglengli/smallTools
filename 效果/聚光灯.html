@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #222;
+            min-height: 100vh;
+        }
+        .word{
+            color: #333;
+            font-size: 8rem;
+            letter-spacing: -.3rem;
+            position: relative;
+        }
+        .word::after{
+            content: attr(data-word);
+            font-size: 8rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: transparent;
+            background-image: url("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3713683833,3191610302&fm=26&gp=0.jpg");
+            background-size: 150%;
+            background-position: center center;
+            /* 创建一个原型遮罩，位置在最左侧的中间 */
+            -webkit-clip-path:ellipse(100px 100px at 0% 50%);
+            clip-path: ellipse(100px 100px at 0% 50%);   
+            animation: lightsport 5s linear 0s;
+            animation-iteration-count: infinite;
+            /* 把背景裁剪成文字的样子 */
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        @keyframes lightsport{
+            0%{
+                -webkit-clip-path:ellipse(100px 100px at 0% 50%);
+                clip-path: ellipse(100px 100px at 0% 50%);
+            }
+            50%{
+                -webkit-clip-path:ellipse(100px 100px at 0% 50%);
+                clip-path: ellipse(100px 100px at 100% 50%);
+            }
+            100%{
+                -webkit-clip-path:ellipse(100px 100px at 0% 50%);
+                clip-path: ellipse(100px 100px at 0% 50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="word" data-word="LengLengLi">LengLengLi</h1>
+</body>
+</html>

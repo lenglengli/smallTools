@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 信息表 */
+        table{
+            width: 300px;
+            border: 1px black solid;
+        }
+        th,td{
+            border: 1px black solid;
+            text-align: center;
+        }
+        div{
+            width: 250px;
+            margin-top: 50px;
+            padding: 10px 0;
+            text-align: center;
+            border: 1px black solid;
+        }
+        input{
+            margin: 10px 0;
+        }
+
+        #table2{
+            margin-top: 50px;
+            position: relative;
+            left: -330px;
+            
+        }
+        p{
+            color:blue;
+            display: inline;
+            cursor: pointer;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <!-- 成员信息 -->
+    <table cellspacing= 0px;>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>学号</th>
+                <th>性别</th>
+                <th>管理</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>张三</td>
+                <td>11111</td>
+                <td>男</td>
+                <td><a href="JavaScript:;">Delete</a></th>
+            </tr>
+            <tr>
+                <td>李四</td>
+                <td>22222</td>
+                <td>男</td>
+                <td><a href="JavaScript:;">Delete</a></th>
+            </tr>
+            <tr>
+                <td>王五</td>
+                <td>33333</td>
+                <td>女</td>
+                <td><a href="JavaScript:;">Delete</a></th>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 添加成员 -->
+    <div>
+        姓名：
+        <input type="text" id="name" value="">
+        学号：
+        <input type="text" id="num" value="">
+        性别：
+        <input type="text" id="gender" value="">
+        <button id="btn">提交</button>
+    </div>
+    <p>修改记录</p>
+    <!-- 修改记录 -->
+    <table cellspacing=0px id="table2">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>学号</th>
+                <th>性别</th>
+                <th>修改情况</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+    <script>
+        // 删除功能
+        var delA = function(){
+
+            //添加确认选项
+            var judge = confirm("确认删除吗");
+            if(judge == true){
+                //获取要删除的tr
+                var tr = this.parentNode.parentNode;
+
+                //删除tr
+                tr.parentNode.removeChild(tr);
+                
+                //获取删除信息
+                var info = tr.childNodes;
+                
+                var name = info[1].innerHTML;
+                var num = info[3].innerHTML;
+                var gender = info[5].innerHTML;
+                
+                //把删除信息添加到记录表
+                var infoTr = document.createElement("tr");
+                infoTr.innerHTML = "<td>"+name+"</td>"+
+                            "<td>"+num+"</td>"+
+                            "<td>"+gender+"</td>"+
+                            "<td>已删除</td>";
+            
+                //tr添加到tbody
+                var tb = document.getElementsByTagName("tbody")[1];
+                tb.appendChild(infoTr);
+            }  
+        };
+        //delete添加onclick事件
+        var del = document.getElementsByTagName("a");
+        for(var i=0;i<del.length;i++){
+            del[i].onclick = delA;
+        }
+
+        //添加功能
+
+        // //第一种
+        // //button添加onclick
+        // var btn = document.getElementById("btn");
+        // btn.onclick = function(){
+        //     //获取姓名，学号，性别
+        //     var name = document.getElementById("name").value;
+        //     var num = document.getElementById("num").value;
+        //     var gender = document.getElementById("gender").value;
+ 
+        //     //创建tr
+        //     var tr = document.createElement("tr"); 
+        //     //创建td
+        //     var nameTd = document.createElement("td");
+        //     var numTd = document.createElement("td");
+        //     var genderTd = document.createElement("td");
+        //     var aTd = document.createElement("td")
+        //     //创建a元素
+        //     var a = document.createElement("a");
+        //     a.href="javascript:;";
+        //     //创建文本节点
+        //     var nameText = document.createTextNode(name);
+        //     var numText = document.createTextNode(num);
+        //     var genderText = document.createTextNode(gender);
+        //     var aText = document.createTextNode("Delete");
+            
+
+        //     //信息添加到文本节点，文本节点添加到td，td添加到tr，tr添加到tbody
+
+        //     nameTd.appendChild(nameText);
+        //     numTd.appendChild(numText);
+        //     genderTd.appendChild(genderText);
+        //     aTd.appendChild(a);
+        //     a.appendChild(aText);
+
+
+        //     tr.appendChild(nameTd);
+        //     tr.appendChild(numTd);
+        //     tr.appendChild(genderTd);
+        //     tr.appendChild(aTd);
+
+        //     var tb = document.getElementsByTagName("tbody")[0];
+        //     tb.appendChild(tr);
+
+        //     //为新的a标签增加删除功能
+        //     a.onclick = delA;
+        // }
+
+        //第二种添加功能
+
+        //button添加onclick
+        var btn = document.getElementById("btn");
+        btn.onclick = function(){
+            //获取姓名，学号，性别
+            var name = document.getElementById("name").value;
+            var num = document.getElementById("num").value;
+            var gender = document.getElementById("gender").value;
+            //创建tr
+            var tr = document.createElement("tr");
+            tr.innerHTML = "<td>"+name+"</td>"+
+                            "<td>"+num+"</td>"+
+                            "<td>"+gender+"</td>"+
+                            "<td><a href='javascript:;'>Delete</a></td>";
+            
+            //tr添加到tbody
+            var tb = document.getElementsByTagName("tbody")[0];
+            tb.appendChild(tr);
+            
+            //为新创建的a标签添加删除功能
+            var del = document.getElementsByTagName("a");
+            for(var i=0;i<del.length;i++){
+                del[i].onclick = delA;
+            }
+
+            //把信息添加到修改记录中
+            //创建修改记录中的tr
+            var tr = document.createElement("tr");
+            tr.innerHTML = "<td>"+name+"</td>"+
+                            "<td>"+num+"</td>"+
+                            "<td>"+gender+"</td>"+
+                            "<td>新添加</td>";
+            
+            //tr添加到tbody
+            var tb = document.getElementsByTagName("tbody")[1];
+            tb.appendChild(tr);
+        }
+
+        //显示修改记录
+        var p = document.getElementsByTagName("p")[0];
+        p.onclick = function(){
+            var table2 = document.getElementById("table2")
+            table2.style.left = 0;
+        }
+        
+        
+
+    </script>
+    
+</body>
+</html>

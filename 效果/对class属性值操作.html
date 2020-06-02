@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        .box2{
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+        .box3{
+            border: tomato 4px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <script>
+        var box = document.getElementsByTagName("div")[0];
+        //box1.className = "box2";//.box2的样式把.box1的样式替换了
+        //box1.className += " box2"; //添加box2的样式，不影响.box1的样式
+        
+        //定义一个函数来向元素中添加指定的class属性值
+        //obj 元素对象
+        //cn 要添加的class值
+        var box = document.getElementsByTagName("div")[0];
+        
+        function addClass(obj,cn){
+            //没有cn属性才添加cn属性
+            if(!hasClass(obj,cn)){
+                obj.className += " "+cn;
+            }
+            
+        }
+        //判断一个元素中是否有指定的class属性值
+        
+        function hasClass(obj,cn){
+            //创建一个正则表达式, \b表示字符边界
+            //判断元素是否有cn属性
+            var reg = new RegExp("\\b"+cn+"\\b");
+            return reg.test(obj.className);
+        }
+        //addClass(box,"box2");
+        //addClass(box,"box3");
+
+        //删除元素的一个class属性
+        function removeClass(obj,cn){
+            var reg = new RegExp("\\b"+cn+"\\b");
+            obj.className = obj.className.replace(reg,"");
+        }
+        //removeClass(box,"box2");
+
+        //切换一个类
+        //如果元素中有该类则删除，没有则添加
+        function toggleClass(obj,cn){
+            if(hasClass(obj,cn)){
+                removeClass(obj,cn);
+            }else{
+                addClass(obj,cn);
+            }
+        }
+        toggleClass(box,"box2");
+    </script>
+
+</body>
+</html>

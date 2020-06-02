@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            width:300px;
+            height:500px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <h3>欢迎注册</h3>
+    <p id="info">
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+        亲爱的用户，请仔细阅读以下协议
+    </p>
+    <!--disabled="disabled" 默认input标签不能使用 -->
+    <input type="checkbox" disabled="disabled">我已阅读以上协议
+    <input type="submit" value="注册" disabled="disabled">
+    <script>
+        var p = document.getElementById("info");
+        var check = document.getElementsByTagName("input")[0];
+        var signIn = document.getElementsByTagName("input")[1];
+
+
+        //onscroll 滚动条滚动事件
+        p.onscroll = function(){
+        
+            //p.scrollHeight - p.scrollTop == p.clientHeight 说明滚动条到达底部
+            //计算机无法准确的存储整数,而且不同屏幕dpi不同，滑到底部时
+            //p.scrollHeight - p.scrollTop可能和p.clientHeight 有一点点的误差
+            if((p.scrollHeight - p.scrollTop - 1) <= p.clientHeight){
+                check.disabled = false;
+                signIn.disabled = false;
+            }
+            
+        }
+    </script>
+</body>
+</html>

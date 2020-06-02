@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px ;height: 100px;background-color: red;
+            position: absolute;
+            top: 50px;
+        }
+        button{
+            position: absolute;
+            left: 800px;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="btn">点击</button>
+
+    <div ></div>
+    <script>
+        var a = document.getElementsByTagName("div")[0] ;
+        var btn =document.getElementById("btn");
+        
+        //控制方向
+        var key = 0;
+           //控制移动
+        function getStyle(obj,styleName){
+            if(window.getComputedStyle){
+                return getComputedStyle(obj)[styleName]
+            }else{
+                return obj.currentStyle.styleName;
+            }
+        }
+        
+        //存储元素对象开启的定时器
+        var change;
+
+        /*obj:对象
+          styleName: 样式名
+          speed: 样式变化的速度快慢
+          target: 样式变化的终值
+          callback: 回调函数，定时器结束时执行此函数，
+          可以通过回调函数来实现简易的动画效果
+        */
+        btn.onclick = function(){
+            //改变对象的属性
+            function move(obj,styleName,speed,target,callback){
+
+                //获取当前样式的值
+                var current = parseInt(getStyle(obj,styleName));
+                //判断变化状态是由大到小还是由小到大
+                if(current>target){
+                        speed = -speed;
+                    }
+                //对象开启一个定时器
+                obj.change = setInterval(function(){
+                    //获取原本的样式值
+                    var nowValue = parseInt(getStyle(obj,styleName));
+                    //获取改变后的样式值
+                    var newValue = nowValue+speed;
+                    //改变样式
+                    obj.style[styleName] = newValue + "px";
+                    
+                    
+                    //样式变化等于终值，结束定时器
+                    if(speed>0 &&newValue > target || speed<0 && newValue < target){
+                        newValue = target;
+                    }
+                    if(newValue == target){
+                        clearInterval(obj.change);
+                        //有回调函数再执行，没有传回调函数就不执行
+                        callback && callback();
+                    }
+                },30)
+                    
+                
+            }
+
+            move(a,"width",27,800,function(){
+                move(a,"height",20,400,function(){
+                    move(a,"width",20,400)
+                })
+            });
+        }
+    </script>
+</body>
+</html>

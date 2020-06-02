@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box1{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+        #box2{
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    额大鳄
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <script>
+         var box1 = document.getElementById("box1");
+    //     box1.onmousedown = function(event){
+    //         event = event || window.event;
+
+    //         // 元素和鼠标位置错开的偏移量
+    //         //因为这个值在鼠标在元素中点下时就已经确定，所以设置在onmousedown事件中
+    //         //如果设置在onmousemove中，效果一样
+    //         //但是鼠标每次移动都会重新计算一次，比较繁杂
+    //         var left = event.clientX - box1.offsetLeft;
+    //         var top = event.clientY - box1.offsetTop;
+
+    //         //解决ie8拖拽异常
+    //         //box1.setCapture();
+    //         //setCapture() 只有ie支持，但调用时火狐不报错，chrome会报错
+    //         //判断是否有setCapture对象，有才会调用setCapture
+    //         box1.setCapture && box1.setCapture()
+
+    //         //鼠标在box1内点下时触发mousemove
+    //         document.onmousemove = function(event){
+    //             event = event || window.event;
+
+    //             //获取滚动条滚动距离
+    //             var yy = document.documentElement.scrollTop;
+
+    //             //求元素偏移，鼠标坐标+滚动距离 ，此时元素的偏移就是鼠标的坐标
+    //             var x = event.clientX;
+    //             var y = event.clientY+yy;
+                
+    //             //left top设为元素偏移量的话，则鼠标永远在元素左上角，体验不好
+    //             //所以我们要在 所以要把元素的偏移量减去一个值;
+    //             //这个值就是 鼠标坐标 - 元素偏移
+    //             //原本的偏移量就是一开始定义的鼠标坐标
+
+    //             //元素添加left top
+    //             box1.style.left = (x-left) + "px";y
+    //             box1.style.top = (y-top) + "px";
+    //             event.cancelBubble = true;
+
+    //             //当我们拖拽一个网页中的内容时(比如全选时拖拽)，浏览器会默认去搜索引擎去搜索
+    //             //此时会导致拖拽功能异常，这个是浏览器提供的默认行为
+    //             //如果不希望发生这个搜索行为，加上return false 就好
+    //             return false;
+
+    //             //ie8不支持return false
+    //             //ie8解决方法
+    //             //调用setCapture()方法，当元素调用setCapture()方法后，这个元素会把下一次任何的和鼠标按下
+    //             //相关的事件捕获到自己身上，就是不管在那个地方按下鼠标，都会执行改元素的mousedown响应函数
+    //             //所以给元素调用setCapture方法就可以解决拖拽异常,此方法只捕获一次，一次性的
+    //         };
+            
+    //         //鼠标松开时，取消mousemove事件
+    //         document.onmouseup = function(){
+    //             document.onmousemove = null;
+
+    //             //当鼠标松开时，mouseup事件也没有存在的意义，所以也取消掉
+    //             document.onmouseup = null;
+
+    //             //ie8取消捕获,如果没有取消捕获，即使鼠标松开了还是在捕获，还是可以拖拽
+    //             //box1.releaseCapture();  
+    //         }
+    //    };
+
+
+        //上面只对box1设置了拖拽，我们可以定义一个函数，来为元素开启拖拽
+        function drag(obj){
+            obj.onmousedown = function(event){
+                event = event || window.event;
+
+                // 元素和鼠标位置错开的偏移量
+                //因为这个值在鼠标在元素中点下时就已经确定，所以设置在onmousedown事件中
+                //如果设置在onmousemove中，效果一样
+                //但是鼠标每次移动都会重新计算一次，比较繁杂
+                var left = event.clientX - obj.offsetLeft;
+                var top = event.clientY - obj.offsetTop;
+
+                //解决ie8拖拽异常
+                //box1.setCapture();
+                //setCapture() 只有ie支持，但调用时火狐不报错，chrome会报错
+                //判断是否有setCapture对象，有才会调用setCapture
+                obj.setCapture && obj.setCapture()
+
+                //鼠标在box1内点下时触发mousemove
+                document.onmousemove = function(event){
+                    event = event || window.event;
+
+                    //获取滚动条滚动距离
+                    var yy = document.documentElement.scrollTop;
+
+                    //求元素偏移，鼠标坐标+滚动距离 ，此时元素的偏移就是鼠标的坐标
+                    var x = event.clientX;
+                    var y = event.clientY+yy;
+                    
+                    //left top设为元素偏移量的话，则鼠标永远在元素左上角，体验不好
+                    //所以我们要在 所以要把元素的偏移量减去一个值;
+                    //这个值就是 鼠标坐标 - 元素偏移
+                    //原本的偏移量就是一开始定义的鼠标坐标
+
+                    //元素添加left top
+                    obj.style.left = (x-left) + "px";y
+                    obj.style.top = (y-top) + "px";
+                    event.cancelBubble = true;
+
+                    //当我们拖拽一个网页中的内容时(比如全选时拖拽)，浏览器会默认去搜索引擎去搜索
+                    //此时会导致拖拽功能异常，这个是浏览器提供的默认行为
+                    //如果不希望发生这个搜索行为，加上return false 就好
+                    return false;
+
+                    //ie8不支持return false
+                    //ie8解决方法
+                    //调用setCapture()方法，当元素调用setCapture()方法后，这个元素会把下一次任何的和鼠标按下
+                    //相关的事件捕获到自己身上，就是不管在那个地方按下鼠标，都会执行改元素的mousedown响应函数
+                    //所以给元素调用setCapture方法就可以解决拖拽异常,此方法只捕获一次，一次性的
+                };
+                
+                //鼠标松开时，取消mousemove事件
+                document.onmouseup = function(){
+                    document.onmousemove = null;
+
+                    //当鼠标松开时，mouseup事件也没有存在的意义，所以也取消掉
+                    document.onmouseup = null;
+
+                    //ie8取消捕获,如果没有取消捕获，即使鼠标松开了还是在捕获，还是可以拖拽
+                    //box1.releaseCapture();  
+                }
+            };
+        }
+        drag(box1);
+        drag(box2);
+        
+    </script>
+</body>
+</html>

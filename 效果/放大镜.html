@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .preview_img{
+            width: 450px;
+            height: 450px;
+            border: 1px gainsboro solid;
+            position: relative;
+            left: 30px;
+            top: 30px;
+        }
+        .mask{
+            height: 300px;
+            width: 300px;
+            background-color: rgba(223, 192, 90, 0.87);
+            opacity: .5;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            cursor: move;
+            display: none;
+        }
+
+        .big{
+            height: 540px;
+            width: 540px;
+            position: absolute;
+            left: 460px;
+            top: 0;
+            display: none;
+            border: 1px gainsboro solid;
+            overflow: hidden;
+        }
+        .big img{
+            position: absolute;
+        }
+        
+    </style>
+</head>
+<body>
+
+        
+    <div class="preview_img">
+        <img src="https://img11.360buyimg.com/n1/s450x450_jfs/t1/87172/37/10861/221245/5e2034c1E853000dc/267c22d25ec60560.jpg" alt="">
+        <div class="mask"></div>
+        <div class="big"><img src="https://img14.360buyimg.com/n0/jfs/t1/87172/37/10861/221245/5e2034c1E853000dc/267c22d25ec60560.jpg" alt=""></div>
+    </div>
+    <script>
+        var preview = document.querySelector(".preview_img");
+        var mask = document.querySelector(".mask");
+        var big = document.querySelector(".big");
+
+        preview.addEventListener("mouseover",function(event){
+            event = event || window.event;
+            mask.style.display = "block";
+            big.style.display = 'block';
+        });
+        preview.addEventListener("mouseout",function(){
+            mask.style.display = "none";
+            big.style.display = 'none';
+        })
+        preview.addEventListener("mousemove",function(event){
+            event = event || window.event;
+            //鼠标坐标相对于preview的坐标
+            var x = event.pageX - this.offsetLeft;
+            var y = event.pageY -this.offsetTop;
+            //mask移动的距离,减去150是让鼠标再中间显示
+            var maskX = x -150;
+            var maskY = y -150;
+            if(maskX <= 0){
+                maskX = 0;
+            }else if(maskX > 150){
+                maskX = 150;
+            }
+            if(maskY <= 0){
+                maskY = 0;
+            }else if(maskY > 150){
+                maskY = 150;
+            }
+            mask.style.left = maskX + 'px';
+            mask.style.top = maskY +'px';
+            
+            //大图移动距离 = 遮挡层移动距离 * 大图片最大移动距离 / 遮挡层最大移动距离
+            // 大图移动距离 = maskX/Y * （800-540）/（450-300）
+            var bigimg = document.querySelector(".big img");
+            var bigX = maskX * 1.73;
+            var bigY = maskY * 1.73;
+            bigimg.style.left = -bigX + 'px';
+            bigimg.style.top = -bigY + 'px';
+        })
+    </script>
+</body>
+</html>

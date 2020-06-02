@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <input type="text" id="username">
+    <ul style="height: 1000px;"></ul>
+    
+    <script>
+        var input = document.querySelector("input");
+        var ul = document.querySelector("ul");
+        
+        ul.addEventListener('click',function(){
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+        load();
+        input.addEventListener('keydown',function(event){
+            event = event || window.event;
+            if(event.keyCode == 13){
+                var data = getData();
+                data.push({title:input.value,done:false});
+                saveData(data);
+                load();
+            }  
+        })
+        
+        //读取本地数据
+        function getData(){
+            var data = localStorage.getItem("title");
+            if(data !== null){
+                return JSON.parse(data);
+            }else{
+                return [];
+            }
+        }
+        //存储本地数据
+        function saveData(data){
+            data = JSON.stringify(data);
+            localStorage.setItem("title",data);
+        }
+        //本地数据加载到页面
+        function load(){
+            var data = getData();
+            console.log(data);
+            var arr = [];
+            for(var i=0; i<data.length; i++){
+                arr.push('<li>'+data[i].title+'</li>');
+            }
+            var str = arr.join("");
+            ul.innerHTML = str;
+
+            // for(var i=0; i<data.length ;i++){
+            //     var li = document.createElement("li");
+            //     var text = document.createTextNode(data[i].title);
+            //     li.appendChild(text);
+            //     ul.appendChild(li);
+            // }
+        }
+    </script>
+</body>
+</html>
